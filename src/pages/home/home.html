@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar color="light">
+    <ion-title text-center><div class="headcol" style="color:#3498db;">PG FINDER</div></ion-title>
+  </ion-navbar>
+</ion-header>
+ 
+<ion-content class="background">
+
+
+<div class="card">
+<ion-card>
+  
+<ion-card-content>
+   <ion-list>
+
+  <ion-item>
+    <ion-label floating><ion-icon name="md-contact" > Email</ion-icon></ion-label>
+    <ion-input type="text" #email></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating><ion-icon name="md-lock"> Password</ion-icon></ion-label>
+    <ion-input type="password"  #password></ion-input>
+  </ion-item>
+
+</ion-list>
+
+
+<div padding>
+<button ion-button full color="secondary" round (click)="openwelcome()">Sign in</button>
+
+
+<strong>OR</strong>
+
+<button ion-button full  color="danger" round  (click)="openreg()">Register</button>
+</div>
+  </ion-card-content>
+</ion-card>
+</div>
+</ion-content>

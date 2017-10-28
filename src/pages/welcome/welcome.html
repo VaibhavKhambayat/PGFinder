@@ -1,0 +1,125 @@
+<!--
+  Generated template for the WelcomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-title>
+      <div class="headcol" style="color:#2ecc71;margin-left: 60px">Welcome!!!</div>
+    </ion-title>
+  </ion-navbar>
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="welcome">
+      <ion-segment-button value="Search" >
+        Search
+      </ion-segment-button>
+      <ion-segment-button value="Post">
+        Post
+      </ion-segment-button>
+      <ion-segment-button value="Profile">
+        Profile
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div [ngSwitch]="welcome">
+    <ion-list *ngSwitchCase="'Search'">
+      <ion-item>
+        <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+        <ion-list>
+          <ion-item *ngFor="let item of items">
+            {{ item }}
+          </ion-item>
+        </ion-list>
+        <ion-card>
+          <img src="https://tse1.mm.bing.net/th?id=OIP.SDB5JvN4a7JR8B2zWtDXDwEsDI&pid=15.1&P=0&w=240&h=161" />
+          <ion-card-content>
+            <ion-card-title>
+              301,Near VJTI College,Matunga(E)
+            </ion-card-title>
+            <p>
+              Available for rent for 4 persons
+            </p>
+            <p>
+              Rs.5000 per person
+            </p>
+          </ion-card-content>
+        </ion-card>
+        <ion-card>
+          <img src="https://tse3.mm.bing.net/th?id=OIP.KGiQDCs4WN5D6FZFoXuxAQEyDL&pid=15.1&P=0&w=270&h=180" />
+          <ion-card-content>
+            <ion-card-title>
+              302,Near VJTI College,Matunga(E)
+            </ion-card-title>
+            <p>
+              Available for rent for 3 persons
+            </p>
+            <p>
+              Rs.8000 per person
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'Post'" >
+      <ion-item>
+        <br>
+        Property Details:
+        <br><textarea rows="4" cols="29">
+      
+        </textarea>
+        <br>
+    
+      
+        <ion-list>
+            
+          <ion-item>
+            <button ion-button block (click) = "pickImage()"></button>
+          </ion-item>
+        </ion-list>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'Profile'">
+      <ion-list>
+        <ion-item>
+          <ion-label floating>
+            <ion-icon name="md-contacts"> Name</ion-icon>
+          </ion-label>
+          <ion-input type="text" [value]= "profile[0].name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>
+            <ion-icon name="md-people"> Age</ion-icon>
+          </ion-label>
+          <ion-input type="text" [value] = "profile[0].age"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>
+            <ion-icon name="ios-contacts"> Phone no</ion-icon>
+          </ion-label>
+          <ion-input type="text"[value]= "profile[0].phone"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>
+            <ion-icon name="md-contact"> Email</ion-icon>
+          </ion-label>
+          <ion-input type="text"[value]= "emailId"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>
+            <ion-icon name="md-lock"> Password</ion-icon>
+          </ion-label>
+          <ion-input type="password" [value]= "profile[0].password"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <button ion-button color="danger" block (click) = "logOut()">Log Out</button>
+    </ion-list>
+  </div>
+</ion-content>

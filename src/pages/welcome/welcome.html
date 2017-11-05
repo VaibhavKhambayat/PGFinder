@@ -36,16 +36,16 @@
           </ion-item>
         </ion-list>
         <ion-card *ngFor="let data of datas">
-          <img src="https://tse1.mm.bing.net/th?id=OIP.SDB5JvN4a7JR8B2zWtDXDwEsDI&pid=15.1&P=0&w=240&h=161" />
+          <img [src]="data.post" />
           <ion-card-content>
             <ion-card-title>
-              301,Near VJTI College,Matunga(E)
+              {{ data.address }}
             </ion-card-title>
             <p>
-              Available for rent for 4 persons
+              {{ data.description }}
             </p>
             <p>
-              Rs.5000 per person
+              {{ data.amount }} per Person
             </p>
           </ion-card-content>
         </ion-card>

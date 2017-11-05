@@ -89,9 +89,11 @@ export class WelcomePage {
           .then(savedProfilePicture => {
             firebase
               .database()
-              .ref('users/'+value+'/post')
+              .ref('userPost/'+value+'/post')
               .set(savedProfilePicture.downloadURL);
           });
+
+          
 
       }, error => {
         // Log an error to the console if something goes wrong.
@@ -103,9 +105,9 @@ export class WelcomePage {
     var email = this.userData.getEmail();
     email.then((value) => {
       this.db.list('/userPost/' + value).push({
-        name: this.address.value,
-        email: this.description.value,
-        password: this.amount.value,
+        address: this.address.value,
+        description: this.description.value,
+        amount: this.amount.value,
         
       })
     });

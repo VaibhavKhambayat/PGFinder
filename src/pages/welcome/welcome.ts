@@ -38,6 +38,7 @@ export class WelcomePage {
 
 
   newItems: Observable<any[]>;
+  datas: any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, public userData: UserdataProvider, public db: AngularFireDatabase, public cameraPlugin: Camera) {
 
     this.welcome = "Search";
@@ -45,10 +46,17 @@ export class WelcomePage {
     email.then((value) => {
       this.newItems = this.db.list('userDetails/' + value).valueChanges();
       this.newItems.subscribe((data => {
-        console.log(data);
+        // console.log(data);
         this.profile = data;
       }));
-    })
+    });
+    email.then((value => {
+      this.db.list('userPost').valueChanges().subscribe((val => {
+        this.datas = val;
+        console.log("Value ", this.datas);
+        
+      }))
+    }));
 
   }
 
@@ -104,7 +112,7 @@ export class WelcomePage {
   onPost(){
     var email = this.userData.getEmail();
     email.then((value) => {
-      this.db.list('/userPost/' + value).push({
+      this.db.object('/userPost/' + value).set({
         address: this.address.value,
         description: this.description.value,
         amount: this.amount.value,

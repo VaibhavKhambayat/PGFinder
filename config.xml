@@ -86,4 +86,5 @@
     <plugin name="com.synconset.imagepicker" spec="~2.1.8">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="select only one image" />
     </plugin>
+    <plugin name="cordova-plugin-camera" spec="^2.4.1" />
 </widget>

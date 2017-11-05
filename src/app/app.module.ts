@@ -14,10 +14,16 @@ import { UserdataProvider } from '../providers/userdata/userdata';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { ImageProvider } from '../providers/image/image';
+import { PreloderProvider } from '../providers/preloder/preloder';
+import { DatabaseProvider } from '../providers/database/database';
 
-import { ImagePicker } from '@ionic-native/image-picker';
+import { Camera } from '@ionic-native/camera';
+import { HttpModule } from '@angular/http';
 
- const config = {
+
+
+const config = {
   apiKey: "AIzaSyDmuQD-jfdBOBF4TsPwFdLvaOyqqzW1BKU",
   authDomain: "pgfinder-3c6d4.firebaseapp.com",
   databaseURL: "https://pgfinder-3c6d4.firebaseio.com",
@@ -39,8 +45,9 @@ import { ImagePicker } from '@ionic-native/image-picker';
     IonicStorageModule.forRoot(),
     AngularFireDatabaseModule,
     IonicModule.forRoot(MyApp),
-     AngularFireModule.initializeApp(config),
-     AngularFireAuthModule
+    AngularFireModule.initializeApp(config),
+    AngularFireAuthModule,
+    HttpModule,
 
   ],
   bootstrap: [IonicApp],
@@ -53,9 +60,13 @@ import { ImagePicker } from '@ionic-native/image-picker';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     UserdataProvider,
-    ImagePicker
+    ImageProvider,
+    PreloderProvider,
+    DatabaseProvider,
+    Camera,
+
   ]
 })
-export class AppModule {}
+export class AppModule { }

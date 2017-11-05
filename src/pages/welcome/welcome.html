@@ -12,7 +12,7 @@
   </ion-navbar>
   <ion-toolbar no-border-top>
     <ion-segment [(ngModel)]="welcome">
-      <ion-segment-button value="Search" >
+      <ion-segment-button value="Search">
         Search
       </ion-segment-button>
       <ion-segment-button value="Post">
@@ -66,23 +66,24 @@
       </ion-item>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'Post'" >
+    <ion-list *ngSwitchCase="'Post'">
       <ion-item>
-        <br>
-        Property Details:
-        <br><textarea rows="4" cols="29">
-      
-        </textarea>
-        <br>
-    
-      
-        <ion-list>
-            
-          <ion-item>
-            <button ion-button block (click) = "pickImage()"></button>
-          </ion-item>
-        </ion-list>
+        <ion-label floating>Address</ion-label>
+        <ion-input type="text"></ion-input>
       </ion-item>
+      
+      <ion-item>
+        <ion-label floating>Description</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Amount</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+
+      <button ion-button block (click) = "takeSelfie()">Submit</button>
+
     </ion-list>
 
     <ion-list *ngSwitchCase="'Profile'">
@@ -91,35 +92,35 @@
           <ion-label floating>
             <ion-icon name="md-contacts"> Name</ion-icon>
           </ion-label>
-          <ion-input type="text" [value]= "profile[0].name"></ion-input>
+          <ion-input type="text" [value]="profile.name"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label floating>
             <ion-icon name="md-people"> Age</ion-icon>
           </ion-label>
-          <ion-input type="text" [value] = "profile[0].age"></ion-input>
+          <ion-input type="text" [value]="profile.age"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label floating>
             <ion-icon name="ios-contacts"> Phone no</ion-icon>
           </ion-label>
-          <ion-input type="text"[value]= "profile[0].phone"></ion-input>
+          <ion-input type="text" [value]="profile.phone"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label floating>
             <ion-icon name="md-contact"> Email</ion-icon>
           </ion-label>
-          <ion-input type="text"[value]= "emailId"></ion-input>
+          <ion-input type="text" [value]="emailId"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label floating>
             <ion-icon name="md-lock"> Password</ion-icon>
           </ion-label>
-          <ion-input type="password" [value]= "profile[0].password"></ion-input>
+          <ion-input type="password" [value]="profile.password"></ion-input>
         </ion-item>
       </ion-list>
 
-      <button ion-button color="danger" block (click) = "logOut()">Log Out</button>
+      <button ion-button color="danger" block (click)="logOut()">Log Out</button>
     </ion-list>
   </div>
 </ion-content>

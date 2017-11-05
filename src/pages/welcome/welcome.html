@@ -69,20 +69,22 @@
     <ion-list *ngSwitchCase="'Post'">
       <ion-item>
         <ion-label floating>Address</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" #address></ion-input>
       </ion-item>
       
       <ion-item>
         <ion-label floating>Description</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" #description></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Amount</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" #amount></ion-input>
       </ion-item>
 
-      <button ion-button block (click) = "takeSelfie()">Submit</button>
+
+      <button ion-button block (click) = "takeSelfie()">Take Photo</button>
+      <button ion-button block (click) = "onPost()">Submit</button>
 
     </ion-list>
 
@@ -92,35 +94,37 @@
           <ion-label floating>
             <ion-icon name="md-contacts"> Name</ion-icon>
           </ion-label>
-          <ion-input type="text" [value]="profile.name"></ion-input>
+          <ion-input type="text" [value]="profile[0].name"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label floating>
             <ion-icon name="md-people"> Age</ion-icon>
           </ion-label>
-          <ion-input type="text" [value]="profile.age"></ion-input>
+          <ion-input type="text" [value]="profile[0].age"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label floating>
             <ion-icon name="ios-contacts"> Phone no</ion-icon>
           </ion-label>
-          <ion-input type="text" [value]="profile.phone"></ion-input>
+          <ion-input type="text" [value]="profile[0].phone"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label floating>
             <ion-icon name="md-contact"> Email</ion-icon>
           </ion-label>
-          <ion-input type="text" [value]="emailId"></ion-input>
+          <ion-input type="text" [value]="profile[0].email"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label floating>
             <ion-icon name="md-lock"> Password</ion-icon>
           </ion-label>
-          <ion-input type="password" [value]="profile.password"></ion-input>
+          <ion-input type="password" [value]="profile[0].password"></ion-input>
         </ion-item>
       </ion-list>
 
       <button ion-button color="danger" block (click)="logOut()">Log Out</button>
     </ion-list>
+    
+
   </div>
 </ion-content>

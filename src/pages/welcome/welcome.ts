@@ -1,12 +1,14 @@
 import { HomePage } from './../home/home';
 import { UserdataProvider } from './../../providers/userdata/userdata';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase} from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 import { Camera } from '@ionic-native/camera';
 
 import * as firebase from 'firebase';
+
+import { Observable } from 'rxjs/Observable';
 
 // import { ImagePicker } from '@ionic-native/image-picker';
 
@@ -27,36 +29,38 @@ export class WelcomePage {
 
 
   welcome: string;
-  profile: any = { age: '', phone: '', password: '', name: ''};
-  emailId = '';
+  profile: any = [];
+  
+  @ViewChild('address') address;
+  @ViewChild('description') description;
+  @ViewChild('amount') amount;
+  
+
+
+  newItems: Observable<any[]>;
   constructor(public navCtrl: NavController, public navParams: NavParams, public userData: UserdataProvider, public db: AngularFireDatabase, public cameraPlugin: Camera) {
-    
+
     this.welcome = "Search";
     var email = this.userData.getEmail();
     email.then((value) => {
-      //console.log(value," is value.");
-      
-      // this.db.list('/userDetails/' + value)
-      // .subscribe((data => {
-      //   this.profile=data;
-      //   this.emailId = value;
-      //   console.log("Get the value", this.profile);
-
-      // }));
-      
+      this.newItems = this.db.list('userDetails/' + value).valueChanges();
+      this.newItems.subscribe((data => {
+        console.log(data);
+        this.profile = data;
+      }));
     })
-    
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WelcomePage');
   }
 
-  logOut(){
+  logOut() {
     this.navCtrl.setRoot(HomePage);
   }
 
-  pickImage(){
+  pickImage() {
     // this.imagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
     //   for (var i = 0; i < results.length; i++) {
     //       console.log('Image URI: ' + results[i]);
@@ -66,30 +70,47 @@ export class WelcomePage {
 
   takeSelfie(): void {
     this.cameraPlugin.getPicture({
-      quality : 95,
-      destinationType : this.cameraPlugin.DestinationType.DATA_URL,
-      sourceType : this.cameraPlugin.PictureSourceType.CAMERA,
-      allowEdit : true,
+      quality: 95,
+      destinationType: this.cameraPlugin.DestinationType.DATA_URL,
+      sourceType: this.cameraPlugin.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
       encodingType: this.cameraPlugin.EncodingType.PNG,
       targetWidth: 500,
       targetHeight: 500,
       saveToPhotoAlbum: true
     }).then(profilePicture => {
       // Send the picture to Firebase Storage
-      const selfieRef = firebase.storage().ref('profilePictures/user1/profilePicture.png');
-      selfieRef
-        .putString(profilePicture, 'base64', {contentType: 'image/png'})
-        .then(savedProfilePicture => {
-          firebase
-            .database()
-            .ref(`users/user1/profilePicture`)
-            .set(savedProfilePicture.downloadURL);
-        });
 
-    }, error => {
-      // Log an error to the console if something goes wrong.
-      console.log("ERROR -> " + JSON.stringify(error));
+      var email = this.userData.getEmail();
+      email.then((value) => {
+        const selfieRef = firebase.storage().ref('profilePictures/'+value+'/post.png');
+        selfieRef
+          .putString(profilePicture, 'base64', { contentType: 'image/png' })
+          .then(savedProfilePicture => {
+            firebase
+              .database()
+              .ref('users/'+value+'/post')
+              .set(savedProfilePicture.downloadURL);
+          });
+
+      }, error => {
+        // Log an error to the console if something goes wrong.
+        console.log("ERROR -> " + JSON.stringify(error));
+      });
     });
   }
-  
+  onPost(){
+    var email = this.userData.getEmail();
+    email.then((value) => {
+      this.db.list('/userPost/' + value).push({
+        name: this.address.value,
+        email: this.description.value,
+        password: this.amount.value,
+        
+      })
+    });
+
+    
+  }
+
 }

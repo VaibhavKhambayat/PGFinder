@@ -51,14 +51,7 @@ export class Registeration1Page {
         phone: this.phone.value,
         age: this.age.value
       })
-      // this.db.object('/userDetails/'+email).set({
-      //   name : this.name.value,
-      //   email : this.email.value,
-      //   password : this.password.value,
-      //   phone : this.phone.value,
-      //   age : this.age.value
-      // })
-
+      
       let alert = this.alertCtrl.create({
         title: 'User Registered!',
         subTitle: 'Log in to your Account!',
